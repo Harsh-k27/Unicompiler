@@ -1,0 +1,32 @@
+from tkinter import *
+from pytube import YouTube
+
+root = Tk()
+root.geometry('400x300')
+root.resizable(0,0)
+root.title("Youtube video downloader")
+
+Label(root,text = 'Youtube Video Downloader', font ='arial 15 bold', fg = 'red').pack()
+
+#link
+link = StringVar()
+
+#Label
+Label(root, text = 'Provide the link here:', font = 'arial 13 bold').place(x= 115, y = 60)
+link_enter = Entry(root, width = 62,textvariable = link).place(x = 10, y = 100)
+
+# video downloader 
+def Downloader():
+    url =YouTube(str(link.get()))
+    video = url.streams.first()
+    video.download()
+    #pop up
+    top= Toplevel(root)
+    top.geometry("200x100")
+    top.title("Video Downloaded")
+    Label(top, text= "DOWNLOADED", font='Arial 10 bold', bg='yellow', fg='green').place(x=50, y=35)
+
+#Button
+Button(root, text = 'DOWNLOAD', font = 'arial 13 bold', bg = 'black', fg='white',padx = 2, command = Downloader).place(x=140, y = 150)
+
+root.mainloop()
